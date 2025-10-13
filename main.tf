@@ -56,8 +56,8 @@ resource "aws_ssm_association" "rds-auto_stop" {
     AutomationAssumeRole = aws_iam_role.scheduler_role.arn
   }  
   targets {
-    key    = "tag:cloud-platform-rds-auto-shutdown"
-    values = ["Schedule RDS Stop/Start during non-business hours for cost saving"]
+    key    = "tag:${var.rds_target_tag_key}"
+    values = [var.rds_target_tag_value]
   }
   automation_target_parameter_name = "InstanceId"
   apply_only_at_cron_interval      = true
